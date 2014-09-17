@@ -1,11 +1,33 @@
 body {
     background-color: #dbe2ed
 }
+
+header {
+	text-align: center;
+	font-family: "Verdana";
+}
+hr {
+	background-image: url(../images/gauze.png);
+	height: .75em;
+	border: none;
+	margin: .75em 0;
+}
 .container {
     width: 688px;
     margin: 0 auto;
-    border: 1px solid black;
     padding: 10px;
+	background-color: white;
+	border-radius:20px;
+}
+.container h3 {
+	background-color: white;
+	display:block;
+	margin: 10px;
+	padding: 10px;
+	font-weight: bolder;
+	border-radius: 25px;
+	text-align:center;
+	font-family: "Verdana";
 }
 .white-shadow {
     background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, .8) 4px, rgba(255, 255, 255, .28) 8px);

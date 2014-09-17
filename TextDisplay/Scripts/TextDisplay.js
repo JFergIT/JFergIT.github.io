@@ -1,7 +1,18 @@
 $(document).ready(function () {
+	$('input[type="button"]').button();
+	//$('#ddlFrom').selectmenu();
+	$('#ddlFrom').hide();
     $('#start').click(function () {
+		
+	var xml = $('#SMSContainer').val();
+	if($.trim(xml) === "")
+	{
+		showModalDialog("Please enter your XML");
+		
+		return;
+	}
         $('#loading').show();
-        var xml = $('#SMSContainer').val();
+        
         var name = "";
 
         $.each($(xml).find('sms'), function (ind, val) {
@@ -16,7 +27,9 @@ $(document).ready(function () {
                 if ($.trim(name) == "") Xname = addr;
                 $('#ddlFrom').append('<option value="' + addr + '">' + Xname + '</option>');
             }
-
+			
+			//$('#ddlFrom').selectmenu( "refresh" );
+			
             if ($(val).attr('type') == 1) addFromMessage(body, addr, time);
             else addToMessage(body, addr, time);
         });
@@ -24,10 +37,13 @@ $(document).ready(function () {
         $('#loading').hide();
         $('#ddlFrom').show();
 
-        $('#ddlFrom').change(function () {
+		
+		$('#ddlFrom').on('change', function() {//.on( "selectmenuchange", function( event, ui ) {
             $('.container').hide();
             $('.container[name="' + $(this).val() + '"]').show();
         });
+		
+		
         $('#reset').show();
         $('#SMSContainer, #start').hide();
     });
@@ -37,6 +53,18 @@ $(document).ready(function () {
         $('#ddlFrom, #reset').hide();
     });
 });
+
+function showModalDialog(msg)
+{
+	$( "#dialog-message" ).dialog({
+		  modal: true,
+		  buttons: {
+			Ok: function() {
+			  $( this ).dialog( "close" );
+			}
+		  }
+		});
+}
 
 function addFromMessage(msg, addr, time) {
     $('.container[name="' + addr + '"]').append('<div class="text-left" title="'+time+'"><p class="white-shadow">' + msg + '</p></div>');
@@ -48,5 +76,5 @@ function addToMessage(msg, addr, time) {
 
 function addContainer(addr, name) {
     if ($.trim(name) == "") name = addr;
-    $('body').append('<div class="container" name="' + addr + '" style="display:none;"><H3>' + name + '</H3></div>');
+    $('#SMSHolder').append('<div class="container" name="' + addr + '" style="display:none;"><H3 class="ui-state-error">' + name + '</H3></div>');
 }
