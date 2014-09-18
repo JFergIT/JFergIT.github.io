@@ -1,4 +1,5 @@
 $(document).ready(function () {
+	$('#SMSContainer').watermark('Paste your Texts XML here.');
 	$('input[type="button"]').button();
 	//$('#ddlFrom').selectmenu();
 	$('#ddlFrom').hide();
@@ -51,6 +52,8 @@ $(document).ready(function () {
        $('#SMSContainer, #start').show();
         $('.container').remove();
         $('#ddlFrom, #reset').hide();
+		$('#ddlFrom').find('option:not(:first)').remove();
+		
     });
 });
 
