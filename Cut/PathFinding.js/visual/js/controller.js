@@ -92,7 +92,7 @@ var Controller = StateMachine.create({
 
 $.extend(Controller, {
     gridSize: [64, 36], // number of nodes horizontally and vertically
-    operationsPerSecond: 300,
+    operationsPerSecond: 5000,
 
     /**
      * Asynchronous transition from `none` state to `ready` state.
@@ -343,7 +343,7 @@ $.extend(Controller, {
             .mouseup($.proxy(this.mouseup, this));
     },
     loop: function() {
-        var interval = 1000 / this.operationsPerSecond;
+        var interval = 10000 / this.operationsPerSecond;
         (function loop() {
             if (!Controller.is('searching')) {
                 return;
@@ -355,7 +355,7 @@ $.extend(Controller, {
     step: function() {
         var operations = this.operations,
             op, isSupported;
-
+		
         do {
             if (!operations.length) {
                 this.finish(); // transit to `finished` state
@@ -366,6 +366,7 @@ $.extend(Controller, {
         } while (!isSupported);
 
         View.setAttributeAt(op.x, op.y, op.attr, op.value);
+		View.setStartPos(op.x, op.y);
     },
     clearOperations: function() {
         this.operations = [];
@@ -478,7 +479,7 @@ $.extend(Controller, {
         centerX = Math.ceil(availWidth / 2 / nodeSize);
         centerY = Math.floor(height / 2 / nodeSize);
 
-        this.setStartPos(centerX - 5, centerY);
+        this.setStartPos(1,6);
         this.setEndPos(centerX + 5, centerY);
     },
     setStartPos: function(gridX, gridY) {
