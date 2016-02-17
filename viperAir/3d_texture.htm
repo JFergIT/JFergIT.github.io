@@ -4,97 +4,125 @@
 <title>Vip KH</title>
 <style>
 
-div#minimapcontainer {
+	div#minimapcontainer {
 
-}
-canvas#minimap {
- position : absolute;
-}
-canvas#minimapobjects {
- position : absolute;
-}
+	}
+	canvas#minimap {
+	 position : absolute;
+	}
+	canvas#minimapobjects {
+	 position : absolute;
+	}
 
-canvas#origonalImageMap {
-	position:absolute;
-	width:256px;
-	height:192px;
-	margin-left:300px;
-}
+	canvas#origonalImageMap {
+		position:absolute;
+		width:256px;
+		height:192px;
+		margin-left:300px;
+	}
 
-div#floor {
- position : absolute;
- width : 100%;
- height : 100%;
- background-color : rgb(0,128, 0);
-}
+	div#floor {
+	 position : absolute;
+	 width : 100%;
+	 height : 100%;
+	 background-color : rgb(0,128, 0);
+	}
 
-div#ceiling {
- position : absolute;
- width : 100%;
- height : 50%;
- background-color : cyan;
-}
+	div#ceiling {
+	 position : absolute;
+	 width : 100%;
+	 height : 50%;
+	 background-color : cyan;
+	}
 
-#screen {
- position : relative;
- width : 320px;
- height : 200px;
- border : 1px solid black;
- overflow : hidden;
-}
+	#screen {
+	 position : relative;
+	 width : 320px;
+	 height : 200px;
+	 border : 1px solid black;
+	 overflow : hidden;
+	}
 
-#leftCol
-{
-	position:relative;
-	width: 550px !important;
-	height: 500px !important;
-	//background-color: red;
-	float: left;
-}
-#rightCol
-{
-	margin-left: 600px; 
-	width: 500px !important;
-	height: 500px !important;
-	position: absolute;
-	//background-color: orange;
-	float: left;
-	margin-top: 40px;
+	#leftCol
+	{
+		position:relative;
+		width: 550px !important;
+		height: 500px !important;
+		//background-color: red;
+		float: left;
+	}
+	#rightCol
+	{
+		margin-left: 600px; 
+		width: 500px !important;
+		height: 500px !important;
+		position: absolute;
+		//background-color: orange;
+		float: left;
+		margin-top: 40px;
+	}
+	#commandsBar
+	{
+		display: block;
+		position: fixed;
+		z-index: 50;
+		line-height: 25px;
+		border: 1px solid #ccc;
+		padding: 5px;
+		background-color: #ECECEC;
+	}
+	.smallTxt
+	{
+		width: 50px;
+		height: 25px;
+	}
+	div.selection
+	{
+		border: 1px solid black;
+		width: 5px !important;
+		height: 5px !important;
+		//display: inline-block;
+		float:left;
+	}
+	div.selection:hover
+	{
+		background-color: orange;
+	}
+
+	.clearBoth { clear:both; }
+	.rows
+	{
+		float:left;
+		width: 600px;
+		height: 5px;
+	}
+
+	.wall
+	{
+		background-color: black;
+	}
+	.unbreakable
+	{
+		background-color: red;
+	}
+	body
+	{
+	padding:10px;
+	}
+	#wallSelect span
+	{
+		width: 50px;
+		height: 50px;
+		background-color: black;
+		display: inline-block;
+		background-image: url("walls.png");
+		border: 4px solid black;
+	}
+	#wallSelect span:hover
+	{
+		border: 4px solid yellow !important;
+	}
 	
-}
-#commandsBar
-{
-	display: block;
-	float:right;
-}
-
-div.selection
-{
-	border: 1px solid black;
-	width: 5px !important;
-	height: 5px !important;
-	//display: inline-block;
-	float:left;
-}
-div.selection:hover
-{
-	background-color: orange;
-}
-
-
-.clearBoth { clear:both; }
-.rows
-{
-	float:left;
-	width: 600px;
-	height: 5px;
-}
-
-.wall
-{
-	background-color: black;
-}
-
 </style>
 
 <script src="excanvas.js" type="text/javascript"></script>
@@ -107,117 +135,49 @@ div.selection:hover
 <body>
 
 <div id="commandsBar">
-	<input type="button" value="generateMap" id="generateMap" />
-	<input type="button" value="hideLeft" id="hideLeft" />
-	<input type="button" value="hideRight" id="hideRight" />
-	<input type="button" value="showAll" id="showAll" />
-	<input type="button" value="updateMini" id="updateMini" />
+	<input type="button" value="-" id="actionsShowHide">
+	<div id="actions">
+		<input type="button" value="Array Test" id="generateMap" />
+		<input type="button" value="hideLeft" id="hideLeft" disabled />
+		<input type="button" value="hideRight" id="hideRight" disabled  />
+		<input type="button" value="Stringify" id="stringify"  />
+		<input type="button" value="Update Space" id="updateMini" />
+		<!--<br />
+		Width: <input type="text" id="txtWidth" class="smallTxt"/>
+		Height: <input type="text" id="txtHeight" class="smallTxt"/>
+		<input type="button" value="Update Grid Height/Width" id="updateSize" />
+		!-->
+	</div>
 </div>
 
 <div id='leftCol'>
-
-<div id="screen">
-<div id="floor"></div>
-<div id="ceiling"></div>
+	<div id="screen">
+	<div id="floor"></div>
+	<div id="ceiling"></div>
 </div>
 
 <div id="minimapcontainer">
-<canvas id="minimap"></canvas>
-<canvas id="minimapobjects"></canvas>
-<canvas id="origonalImageMap"></canvas>
+	<canvas id="minimap"></canvas>
+	<canvas id="minimapobjects"></canvas>
+	<canvas id="origonalImageMap"></canvas>
 </div>
 
 </div>
 <div id="rightCol">
+	<div id="wallSelect">
+		<span img="1" style="background-position-y: -7px; border-color: black;"></span>
+		<span img="2" style="background-position-y: -67px; border-color: yellow;"></span>
+		<span img="3" style="background-position-y: -145px; border-color: green;"></span>
+		<span img="4" style="background-position-y: -206px; border-color: blue;"></span>
+		<span img="5" style="border-color: magenta;"></span>
+	</div>
 
 </div>
 
 <script type="text/javascript">
+	var selectedBrush = 1;
 
-
-var ctrlPressed = false;
-$(window).keydown(function(evt) {
-  if (evt.which == 17) { // ctrl
-    ctrlPressed = true;
-	console.log('ctrl');
-  }
-}).keyup(function(evt) {
-  if (evt.which == 17) { // ctrl
-    ctrlPressed = false;
-	console.log('ctrlOFF');
-  }
-});
-
-$(document).ready(function() {
-	$('div#rightCol').on(//'mouseover', '.selection', function(){
-		//$(this).css('background-color', 'black');
-	{
-    mouseover: function () {
- if (ctrlPressed) {    
-    $(this).addClass('wall');//.css('background-color', 'black');
-	}
-    },
-    click: function (evt) {
-        $(this).removeClass('wall');//css('background-color', 'white');
-    }
-	}, ".selection");
-	
-	$('#commandsBar>input[type=button]#generateMap').click(function() {
-		console.log(buildMapAlt());
-	});
-	
-	$('#updateMini').click(function() {
-		map = buildMapAlt();
-		reDrawMiniMap(builtMap);
-	});
-});
-
-var builtMap = [];
-function buildMap()
-{
-	var hasValues = false;
-	currentRow = [];
-	$('DIV#rightCol DIV.rows').each(function(ind,val) {
-		
-		$(this).find('DIV.selection').each(function(ind2, val2) {
-			 if($(val2).hasClass('wall') == true)
-			 {
-				console.log('HERE X '  + ind + 'HERE Y ' + ind2);
-			 }
-			currentRow[ind2] = $(val2).hasClass('wall') == true ? 1 : 0;
- 		});
-		builtMap[ind+1] = [];	
-		
-		builtMap[ind+1] = currentRow;
-		
-		console.log(ind);
-		
-	});
-	return  builtMap;
-}
-
-function buildMapAlt()
-{
-	builtMap =[];
-	var hasValues = false, rows = $('#rightCol .rows'), items;
-	
-	for(i = 0; i < rows.length; i++)
-	{
-		var currentRow = [];
-	
-		items = $(rows[i]).find('.selection');
-		for(j = 0; j < items.length; j++)
-		{
-			//currentRow[j] = $(items[j]).hasClass('wall');
-			currentRow.push($(items[j]).hasClass('wall'));
-		}
-		builtMap[i] = currentRow;//fix for undefined bug. 
-		//builtMap[i].push(currentRow);
-	}
-	return builtMap;
-}
-
-var map = [
+var map1 = [
 	[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 	[1,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -244,25 +204,185 @@ var map = [
 	[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ];
 
+var map4= [
+	[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,3,0,3,0,0,1,1,1,2,1,1,1,1,1,2,1,1,1,2,1,0,0,0,0,0,0,0,0,1],
+	[1,0,0,3,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,1],
+	[1,0,0,3,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,3,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+	[1,0,0,3,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,1],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,3,3,3,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+	[1,0,0,0,0,0,0,0,0,3,3,3,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,3,3,3,0,0,3,3,3,0,0,0,0,0,0,0,0,0,3,1,1,1,1,1],
+	[1,0,0,0,0,0,0,0,0,3,3,3,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,4,0,0,4,2,0,2,2,2,2,2,2,2,2,0,2,4,4,0,0,4,0,0,0,0,0,0,0,1],
+	[1,0,0,4,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,4,0,0,0,0,0,0,0,1],
+	[1,0,0,4,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,4,0,0,0,0,0,0,0,1],
+	[1,0,0,4,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,4,0,0,0,0,0,0,0,1],
+	[1,0,0,4,3,3,4,2,2,2,2,2,2,2,2,2,2,2,2,2,4,3,3,4,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+	[1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,3,0,3,0,0,1,1,1,2,1,1,1,1,1,2,1,1,1,2,1,0,0,0,0,0,0,0,0,1],
+	[1,0,0,3,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,1],
+	[1,0,0,3,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,3,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+	[1,0,0,3,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,1],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,3,3,3,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+	[1,0,0,0,0,0,0,0,0,3,3,3,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,3,3,3,0,0,3,3,3,0,0,0,0,0,0,0,0,0,3,1,1,1,1,1],
+	[1,0,0,0,0,0,0,0,0,3,3,3,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,4,0,0,4,2,0,2,2,2,2,2,2,2,2,0,2,4,4,0,0,4,0,0,0,0,0,0,0,1],
+	[1,0,0,4,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,4,0,0,0,0,0,0,0,1],
+	[1,0,0,4,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,4,0,0,0,0,0,0,0,1],
+	[1,0,0,4,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,4,0,0,0,0,0,0,0,1],
+	[1,0,0,4,3,3,4,2,2,2,2,2,2,2,2,2,2,2,2,2,4,3,3,4,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+	[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+];
+
+var map = 
+[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,3,0,0,0,0,0,0,5,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,3,0,0,0,0,0,0,5,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,3,3,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,3,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,5,0,0,0,0,0,2,2,2,0,0,0,0,0,3,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,5,5,5,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,1],[1,0,0,5,5,5,5,5,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,1],[1,0,5,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]];
+
+var ctrlPressed = false;
+$(window).keydown(function(evt) {
+  if (evt.which == 17) { // ctrl
+    ctrlPressed = true;
+  }
+}).keyup(function(evt) {
+  if (evt.which == 17) { // ctrl
+    ctrlPressed = false;
+  }
+});
+
+$(document).ready(function() {
+	$('div#rightCol').on({
+		mouseover: function () {
+			if (ctrlPressed) {    
+				$(this).addClass('wall').attr('num', selectedBrush);
+			}
+		},
+			click: function (evt) {
+				if(!$(this).hasClass('unbreakable')){
+					if($(this).hasClass('wall')){
+						$(this).removeClass('wall').removeAttr('num');
+					} else {
+						$(this).addClass('wall').attr('num', selectedBrush); 
+					}
+				}
+			}
+	}, ".selection");
+			
+	$('#commandsBar>input[type=button]#generateMap').click(function() {
+		console.log(buildMapAlt());
+	});
+	
+	$('#wallSelect span').click(function() {
+		selectedBrush = $(this).attr('img');
+	});
+	$('#stringify').click(function() {
+		var stringed = "[";
+		for(i = 0; i<map.length; i++)
+		{
+			stringed += "[";
+			for(j = 0; j<map[0].length; j++)
+			{
+				if(j != map[0].length-1)
+					stringed += map[i][j] + ',';
+				else
+					stringed += map[i][j];
+			}
+			if(i != map.length-1)
+			{
+				stringed += "],";
+			}
+			else 
+			{
+				stringed += "]";
+			}
+		}
+		stringed += "]";
+		console.log(stringed);
+	});
+	$('#updateMini').click(function() {
+		map = buildMapAlt();
+		drawMiniMap();
+		//reDrawMiniMap(builtMap);
+	});
+	$('#updateSize').click(function() {
+		
+	});
+	
+	$('#actionsShowHide').click(function(){
+		var btns = $('#actions');
+		if(btns.is(':visible'))
+		{
+			$(this).val('+');
+			btns.hide();
+		}
+		else
+		{
+			$(this).val('-');
+			btns.show();
+		}
+	});
+});
+
+var builtMap = [];
+
+function buildMapAlt()
+{
+	builtMap =[];
+	var hasValues = false, rows = $('#rightCol .rows'), items;
+	
+	for(i = 0; i < rows.length; i++)
+	{
+		var currentRow = [];
+	
+		items = $(rows[i]).find('.selection');
+		for(j = 0; j < items.length; j++)
+		{
+			currentRow.push($(items[j]).hasClass('wall') == true ? $(items[j]).attr('num') : 0);
+		}
+		builtMap[i] = currentRow;
+	}
+	return builtMap;
+}
+
 	function drawGrid(){
-	var cellList = "";
-		for(i=0; i<32; i++)
-		{
-			if(i==0 || i == 31)
+		var cellList = "",		mapWidth = map[0].length,	mapHeight = map.length;
+			for(i=0; i<mapWidth; i++)
 			{
-				cellList += '<div class="selection wall"></div>';
+				if(i==0 || i == mapWidth-1)
+				{
+					cellList += '<div class="selection wall unbreakable" num="1"></div>';
+				}
+				else
+				{
+					cellList += '<div class="selection"></div>';
+				}
 			}
-			else
+			for(i=0; i<=mapHeight; i++)
 			{
-				cellList += '<div class="selection"></div>';
+					$('#rightCol').append('<div class="rows">' + cellList + '</div>');
 			}
-		}
-		for(i=0; i<24; i++)
-		{
-				$('#rightCol').append('<div class="rows">' + cellList + '</div>');
-		}
-		$('#rightCol>div.rows:first>div.selection').addClass('wall');
-		$('#rightCol>div.rows:last>div.selection').addClass('wall');
+			$('#rightCol>div.rows:first>div.selection').addClass('wall').addClass('unbreakable').attr('num', 1);
+			$('#rightCol>div.rows:last>div.selection').addClass('wall').addClass('unbreakable').attr('num', 1);
+			$( "#rightCol>div.rows:nth-last-child(2)>div.selection" ).addClass('wall').addClass('unbreakable').attr('num', 1);
 	}
 
 	
@@ -282,14 +402,14 @@ var player = {
 var mapWidth = 0;
 var mapHeight = 0;
 
-var miniMapScale = 8;
+var miniMapScale = 10;
 
 var screenWidth = 320;
 var screenHeight = 200;
 
 var stripWidth = 2;
 var fov = 60 * Math.PI / 180;
-
+
 var numRays = Math.ceil(screenWidth / stripWidth);
 var fovHalf = fov / 2;
 
@@ -300,38 +420,25 @@ var twoPI = Math.PI * 2;
 var numTextures = 4;
 
 function init() {
-
 	mapWidth = map[0].length;
 	mapHeight = map.length;
-
 	bindKeys();
-
 	initScreen();
- 
 	drawMiniMap();
-
 	gameCycle();
-	
 	drawOrigonalMap();
 	drawGrid();
-	
 	$('#origonalImageMap').draggable();
-	
 }
 
 function drawOrigonalMap(){
-	var canvas = document.getElementById('origonalImageMap');
-
+	  var canvas = document.getElementById('origonalImageMap');
       var context = canvas.getContext('2d');
       var imageObj = new Image();
-
       imageObj.onload = function() {
         context.drawImage(imageObj, 0, 0);
       };
       imageObj.src = 'map256.jpg';
-
-	  //writeMap(context); //NOT Working.
-	  
 }
 
 function writeMap(context)
@@ -433,6 +540,11 @@ function gameCycle() {
 
 	castRays();
 
+	$('.wall[num~=2]').css('background-color', 'yellow');
+	$('.wall[num~=3]').css('background-color', 'green');
+	$('.wall[num~=4]').css('background-color', 'blue');
+	$('.wall[num~=5]').css('background-color', 'magenta');
+	
 	setTimeout(gameCycle,1000/30); // aim for 30 FPS
 }
 
